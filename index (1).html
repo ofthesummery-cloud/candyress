@@ -1,0 +1,2023 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>candy ress</title>
+<meta name="description" content="candy ress — pricelist aplikasi premium. Tanya stok, isi form, kirim ke WhatsApp.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+/* ====== SAMBUNGAN DATABASE (isi setelah bikin Supabase, lihat PANDUAN.md) ====== */
+window.CANDY_CONFIG = {
+  url: "https://gsvfbtpdsjipqoszynpm.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdzdmZidHBkc2ppcHFvc3p5bnBtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM5NTYwMjAsImV4cCI6MjEwOTUzMjAyMH0.r7WVb3WEgh62rijv-fxvfZM4_ch8qD5ZvPhXiR3bnnM"
+};
+</script>
+<style>
+:root{
+  --ink:#18181b; --muted:#71717a; --line:#e7e7ea; --soft:#f6f6f7; --paper:#fff;
+  --accent:#e11d74; --accent-soft:#fdeaf3;
+  --lemon:#fef9e7; --mint:#eafaf3; --sky:#eef5ff; --grape:#f3f0ff; --cherry:#fdeef4;
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Inter",system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+h1,h2,h3,.f{font-weight:700;line-height:1.2;letter-spacing:-.02em}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .95rem "Inter",sans-serif;cursor:pointer;
+  padding:11px 20px;border:1px solid var(--ink);border-radius:10px;background:var(--ink);color:#fff;text-decoration:none;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn.pink{background:var(--accent);border-color:var(--accent)}
+.btn.mint,.btn.grape{background:var(--ink)}
+.btn.white{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn.white:hover{background:var(--soft);opacity:1}
+.btn.sm{padding:7px 14px;font-size:.86rem;border-radius:8px}
+.btn.xs{padding:4px 10px;font-size:.8rem;border-radius:7px}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:10px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:1.1rem;letter-spacing:-.02em}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.links{display:flex;gap:2px}
+.links a{text-decoration:none;font-weight:500;font-size:.9rem;padding:6px 12px;border-radius:8px;color:var(--muted)}
+.links a:hover{color:var(--ink);background:var(--soft)}
+@media(max-width:720px){.links{display:none}}
+section:first-of-type{padding-top:36px}
+/* hero */
+.hero{padding:64px 0 40px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:.82rem;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e}
+.hero h1{font-size:clamp(2.2rem,7vw,3.6rem);margin:18px 0 12px;max-width:640px}
+.hero h1 .c{color:var(--accent)}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:520px}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.facts b{display:block;font-size:1.05rem}.facts small{color:var(--muted);font-size:.85rem}
+/* notice bar */
+.marq{background:var(--soft);border-block:1px solid var(--line);font-size:.88rem;color:var(--muted)}
+.marq div{padding:12px 16px;max-width:960px;margin:0 auto}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.head{margin-bottom:24px}
+.head h2{font-size:clamp(1.5rem,4vw,2rem)}
+.head p{color:var(--muted);margin-top:4px}
+.tag{display:block;font-weight:600;font-size:.8rem;color:var(--accent);margin-bottom:6px}
+/* pricelist */
+.toolbar{display:flex;gap:10px;margin-bottom:14px}
+.search{flex:1;min-width:200px;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.search:focus{outline:2px solid var(--ink);outline-offset:-1px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px;scrollbar-width:none}
+.tab{font:500 .88rem "Inter",sans-serif;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);cursor:pointer;white-space:nowrap;flex:none}
+.tab.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.prod{padding:16px;display:flex;flex-direction:column;gap:12px}
+.prod .t{display:flex;align-items:center;gap:12px}
+.prod .ic{width:40px;height:40px;flex:none;border-radius:10px;display:grid;place-items:center;font-size:1.15rem;background:var(--soft)!important}
+.prod h3{font-size:1rem;letter-spacing:-.01em}
+.prod .cat{font-size:.78rem;color:var(--muted)}
+.prod .note{font-size:.84rem;color:var(--muted);background:var(--soft);border-radius:8px;padding:7px 10px}
+.st{margin-left:auto;font-weight:600;font-size:.72rem;padding:3px 9px;border-radius:999px;background:#ecfdf3;color:#15803d;white-space:nowrap}
+.st.off{background:var(--soft);color:var(--muted)}
+.plans{list-style:none;display:flex;flex-direction:column}
+.plans li{display:flex;justify-content:space-between;gap:10px;font-size:.9rem;padding:8px 0;border-top:1px solid var(--line)}
+.plans li:first-child{border-top:0}
+.plans b{white-space:nowrap;font-weight:600}
+.prod.closed{opacity:.55}
+.empty{text-align:center;color:var(--muted);padding:30px}
+/* pricelist list */
+.pl{padding:6px 20px}
+.plcat{padding:18px 0;border-top:1px solid var(--line)}
+.plcat:first-child{border-top:0}
+.plcat h3{font-size:1.05rem;margin-bottom:10px;color:var(--accent)}
+.plapp{padding:8px 0}
+.plname{font-weight:600;font-size:.98rem}
+.plnote{font-size:.82rem;color:var(--muted)}
+.plrows{list-style:none;margin-top:2px}
+.plrows li{display:flex;align-items:baseline;gap:8px;font-size:.92rem;color:#3f3f46;padding:3px 0 3px 12px}
+.plrows i{flex:1;border-bottom:1px dotted #c4c4cc;transform:translateY(-4px);min-width:16px}
+.plrows b{font-weight:600;color:var(--ink);white-space:nowrap}
+.plapp.closed{opacity:.5}
+.plrows li.plgrp{padding:8px 0 2px;font-size:.8rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.plrows li.plgrp+li{padding-top:2px}
+.plapp .st{margin-left:6px}
+@media(min-width:760px){.plcat{columns:2;column-gap:40px}.plcat h3{column-span:all}.plapp{break-inside:avoid}}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.step{padding:18px}
+.step .n{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:.9rem;margin-bottom:12px;background:var(--soft)!important;color:var(--ink)!important}
+.step h3{font-size:1rem}.step p{color:var(--muted);font-size:.9rem;margin-top:2px}
+/* forms */
+.forms{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+form.box{padding:20px;display:flex;flex-direction:column;gap:12px}
+form h3{font-size:1.1rem}
+label{display:flex;flex-direction:column;gap:5px;font-weight:500;font-size:.85rem}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ink);outline-offset:-1px}
+textarea{resize:vertical;min-height:76px}
+.hint{font-size:.8rem;color:var(--muted)}
+/* tnc */
+.tnc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.tnc details{border:0!important;border-radius:0!important;border-top:1px solid var(--line)!important}
+.tnc details:first-child{border-top:0!important}
+.tnc summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.tnc summary::after{content:"+";color:var(--muted);font-size:1.2rem;font-weight:400}
+.tnc details[open] summary::after{content:"−"}
+.tnc ol{padding:0 20px 18px 38px;color:#3f3f46;font-size:.93rem}
+.tnc li{margin-bottom:6px}
+/* reseller + about */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.split{grid-template-columns:1fr}}
+.panel{padding:22px}
+.panel.y{background:var(--ink);color:#fff;border-color:var(--ink)}
+.panel.y p{color:#d4d4d8}
+.panel.y .btn{background:#fff;color:var(--ink);border-color:#fff}
+.panel h3{font-size:1.25rem;margin-bottom:6px}
+.panel p{color:var(--muted)}
+.panel ul{list-style:none;margin:12px 0 18px}.panel li{padding:3px 0;font-size:.93rem}.panel li::before{content:"✓  ";color:var(--accent);font-weight:700}
+.contacts{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.testi{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.testi .box{padding:18px;font-size:.93rem}
+.testi .box>div:first-child{color:#f59e0b;font-size:.8rem;letter-spacing:2px;margin-bottom:6px}
+.testi .who{margin-top:10px;font-weight:600;font-size:.84rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;font-size:.86rem;color:var(--muted)}
+footer button{background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;font:inherit}
+.fab{position:fixed;right:16px;bottom:16px;width:52px;height:52px;border-radius:50%;background:#25d366;box-shadow:0 6px 20px rgba(0,0,0,.15);display:grid;place-items:center;z-index:15}
+.fab svg{width:26px;height:26px;fill:#fff}
+/* admin */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:50;display:grid;place-items:center;padding:16px}
+.modal{width:100%;max-width:380px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.err{color:#dc2626;font-size:.88rem}
+.adminbar{position:sticky;top:60px;z-index:19;background:var(--ink);color:#fff}
+.adminbar .wrap{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-block:10px}
+.adminbar .sp{flex:1;font-weight:600;font-size:.88rem;min-width:160px}
+.adminbar .btn{background:#fff;color:var(--ink);border-color:#fff}
+.adminbar #btnSave{background:var(--accent);color:#fff;border-color:var(--accent)}
+.editor{padding:28px 0 80px;background:var(--soft);min-height:100vh}
+.etabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.ecat{padding:16px;margin-bottom:16px}
+.erow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.erow input{flex:1;min-width:120px;padding:8px 10px}
+.erow input.ico{flex:0 0 56px;min-width:0;text-align:center}
+.erow input.price{flex:0 0 120px;min-width:0}
+.eprod{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:12px;display:flex;flex-direction:column;gap:8px;background:var(--soft)}
+.eplan{padding-left:12px;flex-wrap:nowrap}
+.eplan input{min-width:0}
+.eplan input.price{flex:0 0 96px}
+.btn.pink.xs{background:#fff;color:#dc2626;border-color:#fecaca}
+body.editing .fab{display:none}
+.toggle{flex:none;display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:500;flex-direction:row}
+.toggle input{width:auto;flex:none;min-width:0;accent-color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;z-index:60;font-weight:500;font-size:.9rem}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a href="#" class="logo">
+    <span class="dot"></span>
+    <span id="brandName">candy ress</span>
+  </a>
+  <div class="links">
+    <a href="#tnc">TnC</a><a href="#pricelist">Pricelist</a><a href="#join">Join reseller</a>
+  </div>
+  <a href="#join" class="btn sm pink">Join</a>
+</div></nav>
+
+<div id="adminbar" class="adminbar hidden"><div class="wrap">
+  <span class="sp" id="adminInfo">✏️ Mode edit</span>
+  <button class="btn sm white" id="btnPreview">👀 Lihat web</button>
+  <button class="btn sm" id="btnSave">💾 Simpan</button>
+  <button class="btn sm white" id="btnLogout">Keluar</button>
+</div></div>
+
+<div id="site">
+<section id="tnc"><div class="wrap">
+  <div class="head"><span class="tag">Wajib baca</span><h2>Terms &amp; Conditions</h2></div>
+  <div class="tnc" id="tncList"></div>
+</div></section>
+
+<section id="pricelist"><div class="wrap">
+  <div class="head"><span class="tag">Pricelist</span><h2>Pricelist <span id="plName">candy ress</span></h2><p>Wajib tanya stok dulu sebelum transfer ya.</p></div>
+  <div class="toolbar"><input class="search" id="q" placeholder="🔍 Cari aplikasi… (netflix, canva, chatgpt)"></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="pl box" id="grid"></div>
+</div></section>
+
+<section id="join"><div class="wrap">
+  <div class="head"><span class="tag">Reseller</span><h2>Form join reseller</h2><p>Isi form lalu klik kirim. Kamu langsung diarahkan ke WhatsApp admin dengan data yang udah terisi, tinggal tekan kirim.</p></div>
+  <form class="box" id="fJoin" style="max-width:560px">
+    <label>Nama<input name="nama" required placeholder="Nama kamu"></label>
+    <label>Nomor WhatsApp<input name="wa" required inputmode="tel" placeholder="08…"></label>
+    <label>Akun jualan (IG / TikTok / Shopee / dll)<input name="akun" required placeholder="@tokokamu"></label>
+    <label>Link PL kamu<input name="pllink" type="url" placeholder="https://… (Google Docs, Linktree, dll)"></label>
+    <label>Atau upload gambar PL<input name="plimg" id="plImg" type="file" accept="image/*"></label>
+    <p class="hint" style="margin-top:-6px">Isi salah satu: link atau gambar PL. Maks 5 MB.</p>
+    <label>Pernah jualan app premium?<select name="pengalaman"><option>Belum pernah</option><option>Sudah pernah</option></select></label>
+    <label class="toggle" style="font-weight:500"><input type="checkbox" name="setuju" required> Aku sudah baca &amp; setuju TnC</label>
+    <button class="btn pink" type="submit">Kirim pendaftaran via WhatsApp</button>
+  </form>
+</div></section>
+
+<footer>© <span id="yr"></span> <span id="footName">candy ress</span> · <button id="btnAdmin">admin</button></footer>
+</div>
+
+<div id="editor" class="editor hidden"><div class="wrap">
+  <div class="etabs">
+    <button class="tab on" data-e="pl">🍭 Pricelist</button>
+    <button class="tab" data-e="tnc">📜 TnC</button>
+    <button class="tab" data-e="info">🏠 Info toko</button>
+  </div>
+  <div id="ebody"></div>
+</div></div>
+
+
+<div id="login" class="overlay hidden"><div class="box modal">
+  <h3 class="f" style="font-size:1.4rem">🔐 Masuk admin</h3>
+  <p class="hint" id="loginHint"></p>
+  <label>Email<input id="lEmail" type="email" autocomplete="username"></label>
+  <label>Password<input id="lPass" type="password" autocomplete="current-password"></label>
+  <p class="err" id="lErr"></p>
+  <div style="display:flex;gap:8px"><button class="btn pink" id="lGo">Masuk</button><button class="btn white" id="lCancel">Batal</button></div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+/* ====== ISI AWAL (dipakai kalau database belum diisi). Setelah online, edit lewat tombol "admin" di footer. ====== */
+const DEFAULT = {
+  name: "candy ress",
+  wa: "6285371518134",
+  instagram: "",
+  telegram: "",
+  marquee: "Wajib tanya stok dulu · payment di awal · salah e-wallet = saldo hangus · klaim garansi pakai format",
+  about: "candy ress dikelola sama @alouvyu & cacanztik. Ada pertanyaan soal stok, harga, atau garansi? Chat aja, jangan sungkan.",
+  resellerText: "Mau jualan lagi? Gabung jadi reseller candy ress. Wajib punya akun untuk jualan.",
+  resellerPerks: ["Harga khusus reseller", "Info stok & update harga duluan", "Bantuan garansi buat pembeli kamu"],
+  payments: ["QRIS", "DANA", "GoPay", "ShopeePay", "OVO", "Transfer Bank"],
+  categories: [
+    {
+      "name": "Streaming",
+      "icon": "🎬",
+      "products": [
+        {
+          "name": "Netflix",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 1P1U plan prem · 1 hari",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 3 hari",
+              "price": "6.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 5 hari",
+              "price": "8.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 7 hari",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 14 hari",
+              "price": "16.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 1 bulan",
+              "price": "33.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 2 bulan (renewal)",
+              "price": "70.000"
+            },
+            {
+              "name": "Sharing 1P1U plan prem · 3 bulan (renewal)",
+              "price": "110.000"
+            },
+            {
+              "name": "Sharing 1P1U plan std · 1 bulan 3u",
+              "price": "30.000"
+            },
+            {
+              "name": "Sharing 1P2U · 3 hari",
+              "price": "4.500"
+            },
+            {
+              "name": "Sharing 1P2U · 5 hari",
+              "price": "7.000"
+            },
+            {
+              "name": "Sharing 1P2U · 7 hari",
+              "price": "8.000"
+            },
+            {
+              "name": "Sharing 1P2U · 14 hari",
+              "price": "14.000"
+            },
+            {
+              "name": "Sharing 1P2U · 1 bulan",
+              "price": "17.000"
+            },
+            {
+              "name": "Sharing 1P2U · 2 bulan (renewal)",
+              "price": "38.000"
+            },
+            {
+              "name": "Sharing 1P2U · 3 bulan (renewal)",
+              "price": "55.000"
+            },
+            {
+              "name": "Sharing 1P2U plan std · 1 bulan 6u",
+              "price": "15.000"
+            },
+            {
+              "name": "Semi Private · 1 bulan",
+              "price": "35.000"
+            },
+            {
+              "name": "Semi Private · 2 bulan",
+              "price": "78.000"
+            },
+            {
+              "name": "Semi Private · 3 bulan",
+              "price": "115.000"
+            },
+            {
+              "name": "Private · 7 hari",
+              "price": "Tanya admin"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "Tanya admin"
+            },
+            {
+              "name": "Single Screen · 1 bulan",
+              "price": "45.000"
+            },
+            {
+              "name": "Basic · 1 bulan 1u",
+              "price": "23.000"
+            },
+            {
+              "name": "Basic · 1 bulan 2u",
+              "price": "12.000"
+            },
+            {
+              "name": "Basic · 1 bulan private",
+              "price": "40.000"
+            }
+          ]
+        },
+        {
+          "name": "Disney",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Harian 6U · 1 hari",
+              "price": "2.000"
+            },
+            {
+              "name": "Harian 6U · 3 hari",
+              "price": "5.000"
+            },
+            {
+              "name": "Harian 6U · 7 hari",
+              "price": "10.000"
+            },
+            {
+              "name": "Harian 3U · 1 hari",
+              "price": "4.000"
+            },
+            {
+              "name": "Harian 3U · 3 hari",
+              "price": "9.000"
+            },
+            {
+              "name": "Harian 3U · 7 hari",
+              "price": "18.000"
+            },
+            {
+              "name": "Harian 3U · 14 hari",
+              "price": "30.000"
+            },
+            {
+              "name": "Premium Plan · 1 bulan 10U",
+              "price": "14.000"
+            },
+            {
+              "name": "Premium Plan · 1 bulan 6U",
+              "price": "23.000"
+            },
+            {
+              "name": "Premium Plan · 1 bulan 3U",
+              "price": "45.000"
+            },
+            {
+              "name": "Premium Plan · 1 bulan Private",
+              "price": "145.000"
+            },
+            {
+              "name": "Basic Plan · 1 bulan 3U",
+              "price": "27.000"
+            },
+            {
+              "name": "Basic Plan · 1 bulan 2U",
+              "price": "40.000"
+            },
+            {
+              "name": "Basic Plan · 1 bulan Private",
+              "price": "73.000"
+            }
+          ]
+        },
+        {
+          "name": "Viu",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Anti limit · 1 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Anti limit · 2 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Anti limit · 3 bulan",
+              "price": "9.000"
+            },
+            {
+              "name": "Anti limit · 4 bulan",
+              "price": "12.000"
+            },
+            {
+              "name": "Anti limit · 5 bulan",
+              "price": "13.000"
+            },
+            {
+              "name": "Anti limit · 6 bulan",
+              "price": "14.000"
+            },
+            {
+              "name": "Anti limit · 1 tahun",
+              "price": "15.000"
+            },
+            {
+              "name": "Biasa · 1 bulan",
+              "price": "2.000"
+            },
+            {
+              "name": "Biasa · 2 bulan",
+              "price": "3.500"
+            },
+            {
+              "name": "Biasa · 3 bulan",
+              "price": "4.000"
+            },
+            {
+              "name": "Biasa · 4 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Biasa · 5 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Biasa · 6 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Biasa · 1 tahun",
+              "price": "9.000"
+            },
+            {
+              "name": "Plus · 1 bulan 5U",
+              "price": "13.000"
+            },
+            {
+              "name": "Plus · 1 bulan Private",
+              "price": "75.000"
+            }
+          ]
+        },
+        {
+          "name": "Vidio",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Platinum Sharing 2U (All Device) · 1 hari",
+              "price": "5.000"
+            },
+            {
+              "name": "Platinum Sharing 2U (All Device) · 3 hari",
+              "price": "7.000"
+            },
+            {
+              "name": "Platinum Sharing 2U (All Device) · 7 hari",
+              "price": "9.000"
+            },
+            {
+              "name": "Platinum Sharing 2U (All Device) · 1 bulan",
+              "price": "22.000"
+            },
+            {
+              "name": "Platinum Sharing 2U (TV Only) · 1 bulan",
+              "price": "8.000"
+            },
+            {
+              "name": "Platinum Sharing 2U (Mobile Only) · 1 bulan",
+              "price": "16.000"
+            },
+            {
+              "name": "Platinum Private (All Device) · 1 hari",
+              "price": "7.000"
+            },
+            {
+              "name": "Platinum Private (All Device) · 3 hari",
+              "price": "10.000"
+            },
+            {
+              "name": "Platinum Private (All Device) · 7 hari",
+              "price": "16.000"
+            },
+            {
+              "name": "Platinum Private (All Device) · 1 bulan",
+              "price": "42.000"
+            },
+            {
+              "name": "Platinum Private (TV Only) · 1 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "Platinum Private (Mobile Only) · 1 bulan",
+              "price": "35.000"
+            },
+            {
+              "name": "Ultimate Private (All Device) · 1 bulan",
+              "price": "150.000"
+            },
+            {
+              "name": "Ultimate Private (Mobile Only) · 1 bulan",
+              "price": "80.000"
+            }
+          ]
+        },
+        {
+          "name": "Prime Video",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 5U · 7 hari",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing 5U · 1 bulan",
+              "price": "4.000"
+            },
+            {
+              "name": "Sharing 5U · 2 bulan",
+              "price": "16.000"
+            },
+            {
+              "name": "Sharing 3U · 1 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "WeTV",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 8U · 1 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing 8U · 3 bulan",
+              "price": "13.000"
+            },
+            {
+              "name": "Sharing 6U · 1 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Anti Limit · 1 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "HBO Max",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing Standard · 1 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing Standard · 2 bulan",
+              "price": "30.000"
+            },
+            {
+              "name": "Sharing Standard · 3 bulan",
+              "price": "45.000"
+            },
+            {
+              "name": "Sharing Ultimate · 1 bulan",
+              "price": "12.000"
+            },
+            {
+              "name": "Sharing Ultimate · 2 bulan",
+              "price": "44.000"
+            },
+            {
+              "name": "Sharing Ultimate · 3 bulan",
+              "price": "66.000"
+            },
+            {
+              "name": "Private Standard · 1 bulan",
+              "price": "95.000"
+            }
+          ]
+        },
+        {
+          "name": "iQIYI",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing Plan Premium · 1 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing Plan Premium · 3 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing Plan Premium · 1 tahun",
+              "price": "15.000"
+            },
+            {
+              "name": "Sharing Plan Standard · 1 bulan",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing Plan Standard · 3 bulan",
+              "price": "8.000"
+            },
+            {
+              "name": "Sharing Plan Standard · 1 tahun",
+              "price": "13.000"
+            },
+            {
+              "name": "Private Plan Premium · 1 bulan",
+              "price": "35.000"
+            },
+            {
+              "name": "Private Plan Standard · 1 bulan",
+              "price": "27.000"
+            }
+          ]
+        },
+        {
+          "name": "Loklok",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing Plan Standard · 1 bulan 5u",
+              "price": "20.000"
+            },
+            {
+              "name": "Sharing Plan Dasar · 1 bulan 4u",
+              "price": "15.000"
+            },
+            {
+              "name": "Private dsr · 1 bulan",
+              "price": "55.000"
+            },
+            {
+              "name": "Private std · 1 bulan",
+              "price": "72.000"
+            }
+          ]
+        },
+        {
+          "name": "Dramabox",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Bstation",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing · 3 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "8.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "35.000"
+            },
+            {
+              "name": "Private · 3 bulan",
+              "price": "125.000"
+            }
+          ]
+        },
+        {
+          "name": "Youku",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing · 3 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "10.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "25.000"
+            },
+            {
+              "name": "Private · 3 bulan",
+              "price": "75.000"
+            }
+          ]
+        },
+        {
+          "name": "Vision+ Sport",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "PayTV Sharing 2U · 7 hari",
+              "price": "6.000"
+            },
+            {
+              "name": "PayTV Sharing 2U · 1 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "PayTV Private · 7 hari",
+              "price": "10.000"
+            },
+            {
+              "name": "PayTV Private · 1 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "Bill GP (Login Google) Private · 1 bulan",
+              "price": "25.000"
+            }
+          ]
+        },
+        {
+          "name": "Iflix",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Crunchyroll",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "15.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "45.000"
+            }
+          ]
+        },
+        {
+          "name": "Viki Standar",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "10.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "80.000"
+            }
+          ]
+        },
+        {
+          "name": "Catchplay+",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "Drakor Id",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Sushiroll",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "Genflix",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "10.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Musik",
+      "icon": "🎧",
+      "products": [
+        {
+          "name": "Spotify",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Famplan · 2 bulan",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "YouTube",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Famhead · 1 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "Famplan · 1 bulan",
+              "price": "3.000"
+            },
+            {
+              "name": "Famplan · 2 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Indplan Norenew · 1 bulan",
+              "price": "13.000"
+            },
+            {
+              "name": "Indplan Norenew · 2 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "Indplan Norenew · 3 bulan",
+              "price": "32.000"
+            },
+            {
+              "name": "Mixplan · 2 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "Mixplan · 3 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "Mixplan · 5 bulan",
+              "price": "40.000"
+            }
+          ]
+        },
+        {
+          "name": "Resso",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "6.000"
+            }
+          ]
+        },
+        {
+          "name": "Tiktok Music",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "6.000"
+            }
+          ]
+        },
+        {
+          "name": "Apple Music",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Giftcard · 1-2 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "iMess · 1 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "iMess · 2 bulan",
+              "price": "15.000"
+            },
+            {
+              "name": "iMess · 3 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "iMess · 4 bulan",
+              "price": "25.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Editing",
+      "icon": "🎨",
+      "products": [
+        {
+          "name": "Canva",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Member · 1 hari",
+              "price": "500p"
+            },
+            {
+              "name": "Member · 3 hari",
+              "price": "300p"
+            },
+            {
+              "name": "Member · 7 hari",
+              "price": "500p"
+            },
+            {
+              "name": "Member · 1 bulan",
+              "price": "1.000"
+            },
+            {
+              "name": "Member · 2 bulan",
+              "price": "2.000"
+            },
+            {
+              "name": "Member · 3 bulan",
+              "price": "3.000"
+            },
+            {
+              "name": "Member · 4 bulan",
+              "price": "4.000"
+            },
+            {
+              "name": "Member · 5 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Member · 6 bulan",
+              "price": "8.000"
+            },
+            {
+              "name": "Member · 12 bulan (full garansi)",
+              "price": "13.000"
+            },
+            {
+              "name": "Designer · semua durasi",
+              "price": "+1K dari Member"
+            },
+            {
+              "name": "Edu Lifetime · Garansi 3 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Edu Lifetime · Garansi 6 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Edu Lifetime · Garansi 12 bulan",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "PicsArt",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing · 3 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Ibis Paint X",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "Remini",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing Lite · 1 tahun",
+              "price": "15.000"
+            },
+            {
+              "name": "Sharing Pro · 1 tahun",
+              "price": "25.000"
+            }
+          ]
+        },
+        {
+          "name": "CapCut",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 2U · 3 hari",
+              "price": "3.000"
+            },
+            {
+              "name": "Sharing 2U · 5 hari",
+              "price": "4.000"
+            },
+            {
+              "name": "Sharing 2U · 7 hari",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing 2U · 1 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "Private · 7 hari",
+              "price": "12.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "35.000"
+            }
+          ]
+        },
+        {
+          "name": "Alight Motion",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Private · 1 bulan",
+              "price": "2.000"
+            },
+            {
+              "name": "Private · 1 tahun",
+              "price": "5.000"
+            }
+          ]
+        },
+        {
+          "name": "Lightroom",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "10.000"
+            },
+            {
+              "name": "Preset · 500 preset",
+              "price": "7.000"
+            },
+            {
+              "name": "Preset · 1000 preset",
+              "price": "10.000"
+            },
+            {
+              "name": "Preset · 2000 preset",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "VSCO",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (X) · 1 tahun",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing (Pro) · 1 tahun",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "OldRoll",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Picma",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Meitu",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Prequel Gold",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (iOS) · 1 tahun",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "Polarr",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (Android) · 1 tahun",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "Epik",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (Android) · 1 tahun",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing (iOS) · 1 tahun",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Procreate iPad",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Ifake",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Tezza",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (Android) · 1 tahun",
+              "price": "17.000"
+            },
+            {
+              "name": "Sharing (iOS) · 1 tahun",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "Dazzcam",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing (iOS) · Lifetime",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Unfold",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "12.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Edukasi & AI",
+      "icon": "🤖",
+      "products": [
+        {
+          "name": "ChatGPT Plus",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 5U · 7 hari",
+              "price": "17.000"
+            },
+            {
+              "name": "Sharing 5U · 1 bulan",
+              "price": "40.000"
+            },
+            {
+              "name": "Sharing 8U · 1 hari",
+              "price": "5.000"
+            },
+            {
+              "name": "Sharing 8U · 3 hari",
+              "price": "8.000"
+            },
+            {
+              "name": "Sharing 8U · 7 hari",
+              "price": "13.000"
+            },
+            {
+              "name": "Sharing 8U · 1 bulan",
+              "price": "32.000"
+            },
+            {
+              "name": "Private · 7 hari",
+              "price": "85.000"
+            },
+            {
+              "name": "Private · 1 bulan (no garansi)",
+              "price": "Tanya admin"
+            },
+            {
+              "name": "Private · 1 bulan (full garansi)",
+              "price": "Tanya admin"
+            }
+          ]
+        },
+        {
+          "name": "ChatGPT GO",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 5U · 1 bulan",
+              "price": "17.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "90.000"
+            }
+          ]
+        },
+        {
+          "name": "Duolingo",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Famplan · 1 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Famplan · 2 bulan",
+              "price": "20.000"
+            },
+            {
+              "name": "Famplan · 3 bulan",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "Turnitin Cek",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Biasa · 1 kali cek",
+              "price": "1.500"
+            }
+          ]
+        },
+        {
+          "name": "Quillbot",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "10.000"
+            },
+            {
+              "name": "Sharing · 2 bulan",
+              "price": "25.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "22.000"
+            },
+            {
+              "name": "Private · 2 bulan",
+              "price": "50.000"
+            }
+          ]
+        },
+        {
+          "name": "Claude AI",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing 5U · 7 hari",
+              "price": "35.000"
+            },
+            {
+              "name": "Sharing 3U · 7 hari",
+              "price": "50.000"
+            },
+            {
+              "name": "Private · 7 hari",
+              "price": "150.000"
+            }
+          ]
+        },
+        {
+          "name": "MS 365",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "5.000"
+            }
+          ]
+        },
+        {
+          "name": "Brainly",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "10.000"
+            }
+          ]
+        },
+        {
+          "name": "Quizlet",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "CamScanner",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Mathway",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "iLovePDF",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Goodnotes 6",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "20.000"
+            }
+          ]
+        },
+        {
+          "name": "GDrive Unlim",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · Lifetime",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "Scribd",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "12.000"
+            }
+          ]
+        },
+        {
+          "name": "Grammarly",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "7.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "35.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lainnya",
+      "icon": "✨",
+      "products": [
+        {
+          "name": "Telegram Premium",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Via Login · 1 bulan (full garansi)",
+              "price": "52.000"
+            },
+            {
+              "name": "Via Login · 1 bulan (no garansi)",
+              "price": "46.000"
+            },
+            {
+              "name": "Via Gift · 3 bulan (full garansi)",
+              "price": "195.000"
+            },
+            {
+              "name": "Via Gift · 6 bulan (full garansi)",
+              "price": "270.000"
+            },
+            {
+              "name": "Via Gift · 1 tahun (full garansi)",
+              "price": "470.000"
+            }
+          ]
+        },
+        {
+          "name": "Wattpad",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Sharing · 1 bulan",
+              "price": "6.000"
+            },
+            {
+              "name": "Sharing · 6 bulan",
+              "price": "12.000"
+            },
+            {
+              "name": "Sharing · 1 tahun",
+              "price": "15.000"
+            },
+            {
+              "name": "Private · 1 bulan",
+              "price": "25.000"
+            }
+          ]
+        },
+        {
+          "name": "Apple TV",
+          "note": "",
+          "ready": false,
+          "plans": [
+            {
+              "name": "Via GC · 3 bulan",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "iCloud",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Via GC · 50GB 3-4 bulan",
+              "price": "20.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Game",
+      "icon": "🎮",
+      "products": [
+        {
+          "name": "Papa to Go",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Android · Lifetime (16 game)",
+              "price": "20.000"
+            },
+            {
+              "name": "iOS · Lifetime (9 game)",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "Monopoly",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "Android · Lifetime",
+              "price": "15.000"
+            },
+            {
+              "name": "iOS · Lifetime",
+              "price": "15.000"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "VPN",
+      "icon": "🛡️",
+      "products": [
+        {
+          "name": "Windscribe VPN",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "1 bulan",
+              "price": "15.000"
+            }
+          ]
+        },
+        {
+          "name": "Vypr VPN",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "1 tahun",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "HMA VPN",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "1 tahun",
+              "price": "30.000"
+            }
+          ]
+        },
+        {
+          "name": "Nord VPN",
+          "note": "",
+          "ready": true,
+          "plans": [
+            {
+              "name": "1 tahun",
+              "price": "25.000"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  tnc: [
+    {
+      "title": "TnC Umum",
+      "items": [
+        "Wajib mempunyai akun untuk jualan.",
+        "Payment wajib di awal, untuk menghindari HnR.",
+        "Jika salah transfer e-wallet, saldo hangus.",
+        "Sebelum order wajib tanyakan stok dulu.",
+        "Order in-rush wajib konfirmasi dulu ke admin.",
+        "Proses order 5–10 menit, maksimal 1×24 jam.",
+        "Tidak ada refund, kecuali kesalahan dari admin/owner.",
+        "Order dan klaim garansi wajib pakai format.",
+        "Setelah order wajib kirim format login.",
+        "Proses garansi 0–3 hari, maksimal 7×24 jam.",
+        "Yang tidak mau menunggu garansi boleh minta refund.",
+        "Keluar grup tanpa alasan = garansi hangus."
+      ]
+    },
+    {
+      "title": "Penting!",
+      "items": [
+        "Dilarang menawarkan stok ke sesama reseller. Melanggar = kick dan semua garansi hangus.",
+        "Dilarang membeli apk premium untuk dipakai sendiri, keluarga, atau kerabat dengan harga reseller. Melanggar = kick dan semua garansi hangus.",
+        "Reseller tangan pertama tidak bisa jadi reseller Candy.",
+        "Curang (jual ulang, utak-atik akun, dll) yang merugikan owner kena denda sesuai kerugian dan di-spill di semua platform."
+      ]
+    },
+    {
+      "title": "TnC Bot Order",
+      "items": [
+        "Jangan transaksi saat bot order sedang diumumkan error.",
+        "Bayar via QR hanya saat in-rush atau admin slow respon, dan tidak saat QR diumumkan error.",
+        "Setelah transaksi wajib kirim format login ke admin atau bot.",
+        "Ada kendala? Hubungi admin yang online di grup atau Kak Candy."
+      ]
+    }
+  ],
+  testimonials: [
+    { text: "Fast respon, akun langsung dikirim. Makasih kak!", who: "Pembeli Netflix" },
+    { text: "Garansi beneran diurus, aman jualan di sini.", who: "Reseller" },
+    { text: "Harganya paling masuk akal, adminnya ramah.", who: "Pembeli Canva" }
+  ]
+};
+/* ============================================================================================================ */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const clone = o => JSON.parse(JSON.stringify(o));
+const fmt = p => { const d = String(p ?? "").replace(/\D/g, ""); return d && /^[\d.\s]+$/.test(String(p).trim()) ? "Rp" + Number(d).toLocaleString("id-ID") : esc(p); };
+const COLORS = ["var(--grape)", "var(--sky)", "var(--cherry)", "var(--mint)", "var(--lemon)"];
+const toast = m => { const t = document.createElement("div"); t.className = "toast"; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 2600); };
+
+let D = clone(DEFAULT);
+let sb = null, session = null;
+const cfg = window.CANDY_CONFIG || {};
+const LOCAL = !(cfg.url && cfg.anonKey);
+const LS = "candyress-data";
+
+function waNum() { let n = String(D.wa || "").replace(/\D/g, ""); if (n.startsWith("0")) n = "62" + n.slice(1); return n; }
+function wa(msg) { return `https://wa.me/${waNum()}${msg ? "?text=" + encodeURIComponent(msg) : ""}`; }
+
+/* ---------- load / save ---------- */
+async function load() {
+  if (LOCAL) {
+    try { const s = localStorage.getItem(LS); if (s) D = { ...clone(DEFAULT), ...JSON.parse(s) }; } catch (e) {}
+    return;
+  }
+  sb = supabase.createClient(cfg.url, cfg.anonKey);
+  const { data, error } = await sb.from("site_content").select("data").eq("id", 1).maybeSingle();
+  if (!error && data && data.data) D = { ...clone(DEFAULT), ...data.data };
+  const { data: s } = await sb.auth.getSession(); session = s.session;
+}
+async function save() {
+  if (LOCAL) {
+    try { localStorage.setItem(LS, JSON.stringify(D)); toast("Tersimpan (di browser ini aja)"); } catch (e) { toast("Gagal simpan"); }
+    return;
+  }
+  const { error } = await sb.from("site_content").upsert({ id: 1, data: D, updated_at: new Date().toISOString() });
+  toast(error ? "Gagal simpan: " + error.message : "Tersimpan! Web udah ke-update 🎉");
+}
+
+/* ---------- public site ---------- */
+let cat = "Semua";
+function allProducts() { return D.categories.flatMap(c => c.products.map(p => ({ ...p, cat: c.name, icon: c.icon }))); }
+function renderSite() {
+  document.title = D.name;
+  $("#brandName").textContent = D.name; $("#footName").textContent = D.name; $("#plName").textContent = D.name;
+  $("#tncList").innerHTML = D.tnc.map((s, i) => `<details class="box" ${i === 0 ? "open" : ""}><summary>${esc(s.title)}</summary><ol>${s.items.map(x => `<li>${esc(x)}</li>`).join("")}</ol></details>`).join("");
+  renderPL();
+}
+function renderPL() {
+  const names = ["Semua", ...D.categories.map(c => c.name)];
+  if (!names.includes(cat)) cat = "Semua";
+  $("#tabs").innerHTML = names.map(n => `<button class="tab ${n === cat ? "on" : ""}" data-c="${esc(n)}">${esc(n)}</button>`).join("");
+  const q = $("#q").value.trim().toLowerCase();
+  const html = D.categories.filter(c => cat === "Semua" || c.name === cat).map(c => {
+    const ps = c.products.filter(p => !q || (p.name + " " + c.name).toLowerCase().includes(q));
+    if (!ps.length) return "";
+    return `<div class="plcat"><h3>${esc(c.icon)} ${esc(c.name)}</h3>${ps.map(p => {
+      const rows = p.plans.filter(x => x.name || x.price);
+      return `<div class="plapp ${p.ready ? "" : "closed"}">
+        <div class="plname">${esc(p.name)}${p.ready ? "" : ` <span class="st off">close</span>`}</div>
+        ${p.note ? `<div class="plnote">${esc(p.note)}</div>` : ""}
+        <ul class="plrows">${rows.length ? (() => { let g = null; return rows.map(x => { const k = x.name.split(" · "); const grp = k.length > 1 ? k[0] : null; const label = k.length > 1 ? k.slice(1).join(" · ") : x.name; const head = grp && grp !== g ? `<li class="plgrp">${esc(grp)}</li>` : ""; g = grp; return head + `<li><span>${esc(label)}</span><i></i><b>${fmt(x.price)}</b></li>`; }).join(""); })() : `<li><span>Tanya admin</span></li>`}</ul>
+      </div>`; }).join("")}</div>`;
+  }).join("");
+  $("#grid").innerHTML = html || `<div class="empty">Gak ketemu, coba kata lain.</div>`;
+}
+$("#tabs").addEventListener("click", e => { if (e.target.dataset.c) { cat = e.target.dataset.c; renderPL(); } });
+$("#q").addEventListener("input", renderPL);
+$("#fJoin").onsubmit = async e => {
+  e.preventDefault(); const form = e.target; const f = new FormData(form);
+  const link = (f.get("pllink") || "").trim(); const file = $("#plImg").files[0];
+  if (!link && !file) { toast("Isi link PL atau upload gambar PL dulu ya"); return; }
+  if (file && file.size > 5 * 1024 * 1024) { toast("Gambar kegedean, maks 5 MB"); return; }
+  const btn = form.querySelector("button[type=submit]"); const label = btn.textContent;
+  let plText = link || "-", imgText = "";
+  if (file) {
+    if (sb) {
+      btn.disabled = true; btn.textContent = "Lagi upload gambar…";
+      const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error } = await sb.storage.from("pl-reseller").upload(path, file, { contentType: file.type });
+      btn.disabled = false; btn.textContent = label;
+      if (error) { toast("Upload gagal, coba lagi atau pakai link"); return; }
+      imgText = sb.storage.from("pl-reseller").getPublicUrl(path).data.publicUrl;
+    } else {
+      imgText = "(gambar PL aku kirim di chat ini)";
+    }
+  }
+  location.href = wa(`*JOIN RESELLER ${D.name.toUpperCase()}*\n\nNama: ${f.get("nama")}\nNo. WA: ${f.get("wa")}\nAkun jualan: ${f.get("akun")}\nPengalaman: ${f.get("pengalaman")}\nLink PL: ${plText}${imgText ? `\nGambar PL: ${imgText}` : ""}\n\nSaya sudah baca & setuju TnC.`);
+};
+
+/* ---------- admin ---------- */
+let etab = "pl";
+function openEditor() {
+  document.body.classList.add("editing"); $("#site").classList.add("hidden"); $("#editor").classList.remove("hidden"); $("#adminbar").classList.remove("hidden");
+  $("#adminInfo").textContent = LOCAL ? "✏️ Mode edit (demo: simpan cuma di browser ini)" : `✏️ Mode edit · ${session?.user?.email || ""}`;
+  renderEditor(); scrollTo(0, 0);
+}
+function closeEditor() {
+  document.body.classList.remove("editing"); $("#site").classList.remove("hidden"); $("#editor").classList.add("hidden"); $("#adminbar").classList.add("hidden");
+  renderSite();
+}
+$("#btnAdmin").onclick = () => {
+  if (LOCAL || session) return openEditor();
+  $("#loginHint").textContent = "Pakai email & password admin yang dibuat di Supabase.";
+  $("#lErr").textContent = ""; $("#login").classList.remove("hidden"); $("#lEmail").focus();
+};
+$("#lCancel").onclick = () => $("#login").classList.add("hidden");
+$("#lGo").onclick = async () => {
+  $("#lErr").textContent = "";
+  const { data, error } = await sb.auth.signInWithPassword({ email: $("#lEmail").value.trim(), password: $("#lPass").value });
+  if (error) { $("#lErr").textContent = "Gagal masuk: " + error.message; return; }
+  session = data.session; $("#login").classList.add("hidden"); openEditor();
+};
+$("#lPass").addEventListener("keydown", e => { if (e.key === "Enter") $("#lGo").click(); });
+$("#btnSave").onclick = save;
+$("#btnPreview").onclick = () => {
+  const ed = !$("#editor").classList.contains("hidden");
+  $("#site").classList.toggle("hidden", !ed ? true : false); $("#editor").classList.toggle("hidden", ed);
+  $("#btnPreview").textContent = ed ? "✏️ Balik edit" : "👀 Lihat web";
+  if (ed) renderSite(); scrollTo(0, 0);
+};
+$("#btnLogout").onclick = async () => {
+  if (!confirm("Keluar dari mode edit? Perubahan yang belum disimpan bakal hilang.")) return;
+  if (!LOCAL && sb) { await sb.auth.signOut(); session = null; await load(); }
+  else { try { const s = localStorage.getItem(LS); D = s ? { ...clone(DEFAULT), ...JSON.parse(s) } : clone(DEFAULT); } catch (e) { D = clone(DEFAULT); } }
+  $("#btnPreview").textContent = "👀 Lihat web"; closeEditor();
+};
+document.querySelector(".etabs").addEventListener("click", e => {
+  if (!e.target.dataset.e) return; etab = e.target.dataset.e;
+  document.querySelectorAll(".etabs .tab").forEach(b => b.classList.toggle("on", b.dataset.e === etab)); renderEditor();
+});
+
+// Every input has data-path like "categories.0.products.2.name"; editing writes straight into D.
+function getP(path) { return path.split(".").reduce((o, k) => o[k], D); }
+function setP(path, v) { const ks = path.split("."); const last = ks.pop(); ks.reduce((o, k) => o[k], D)[last] = v; }
+const inp = (path, ph = "", cls = "") => `<input class="${cls}" data-path="${path}" value="${esc(getP(path))}" placeholder="${esc(ph)}">`;
+const act = (a, path, label, cls = "white") => `<button class="btn xs ${cls}" data-a="${a}" data-p="${path}">${label}</button>`;
+
+function renderEditor() {
+  const b = $("#ebody");
+  if (etab === "pl") {
+    b.innerHTML = `<p class="hint" style="margin-bottom:14px">Harga cukup tulis angka (mis. <b>33000</b>) biar otomatis jadi Rp33.000. Boleh juga teks bebas kayak "Tanya admin". Nama paket pakai format <b>Paket · durasi</b> (mis. "Sharing 5U · 1 bulan") biar dikelompokkan rapi. Jangan lupa klik <b>💾 Simpan</b>.</p>` +
+      D.categories.map((c, ci) => `
+      <div class="box ecat">
+        <div class="erow">${inp(`categories.${ci}.icon`, "🎬", "ico")}${inp(`categories.${ci}.name`, "Nama kategori")}
+          ${act("up", `categories.${ci}`, "↑")}${act("down", `categories.${ci}`, "↓")}${act("del", `categories.${ci}`, "Hapus kategori", "pink")}</div>
+        ${c.products.map((p, pi) => { const pp = `categories.${ci}.products.${pi}`; return `
+          <div class="eprod">
+            <div class="erow">${inp(pp + ".name", "Nama aplikasi")}
+              <label class="toggle"><input type="checkbox" data-path="${pp}.ready" ${p.ready ? "checked" : ""}> Ready</label>
+              ${act("up", pp, "↑")}${act("down", pp, "↓")}${act("del", pp, "Hapus", "pink")}</div>
+            <div class="erow">${inp(pp + ".note", "Catatan (opsional), mis. 'garansi 25 hari'")}</div>
+            ${p.plans.map((x, xi) => `<div class="erow eplan">${inp(`${pp}.plans.${xi}.name`, "Paket / durasi")}${inp(`${pp}.plans.${xi}.price`, "Harga", "price")}${act("del", `${pp}.plans.${xi}`, "✕", "pink")}</div>`).join("")}
+            <div>${act("add-plan", pp, "+ Paket", "mint")}</div>
+          </div>`; }).join("")}
+        <div style="margin-top:12px">${act("add-prod", `categories.${ci}`, "+ Aplikasi", "")}</div>
+      </div>`).join("") + `<button class="btn grape" data-a="add-cat" data-p="">+ Kategori baru</button>`;
+  } else if (etab === "tnc") {
+    b.innerHTML = D.tnc.map((s, si) => `
+      <div class="box ecat">
+        <div class="erow">${inp(`tnc.${si}.title`, "Judul bagian")}${act("up", `tnc.${si}`, "↑")}${act("down", `tnc.${si}`, "↓")}${act("del", `tnc.${si}`, "Hapus bagian", "pink")}</div>
+        ${s.items.map((x, xi) => `<div class="erow eplan" style="margin-top:8px">${inp(`tnc.${si}.items.${xi}`, "Isi aturan")}${act("del", `tnc.${si}.items.${xi}`, "✕", "pink")}</div>`).join("")}
+        <div style="margin-top:10px">${act("add-item", `tnc.${si}.items`, "+ Aturan", "mint")}</div>
+      </div>`).join("") + `<button class="btn grape" data-a="add-tnc" data-p="">+ Bagian baru</button>`;
+  } else {
+    const list = (key, ph) => `<div class="box ecat"><b>${ph}</b>${(D[key] || []).map((x, i) => `<div class="erow" style="margin-top:8px">${inp(`${key}.${i}`)}${act("del", `${key}.${i}`, "✕", "pink")}</div>`).join("")}<div style="margin-top:10px">${act("add-item", key, "+ Tambah", "mint")}</div></div>`;
+    b.innerHTML = `
+      <div class="box ecat" style="display:flex;flex-direction:column;gap:10px">
+        <label>Nama toko${inp("name")}</label>
+        <label>Nomor WhatsApp admin, tujuan form join (format 62…, tanpa + atau spasi)${inp("wa", "6281234567890")}</label>
+      </div>
+      <div class="box ecat"><b>Backup</b><p class="hint">Unduh semua isi web sebagai file, atau pulihkan dari file backup.</p>
+        <div class="erow" style="margin-top:8px"><button class="btn sm white" id="bExp">⬇️ Unduh backup</button>
+        <label class="btn sm white" style="flex-direction:row">⬆️ Pulihkan<input type="file" id="bImp" accept=".json" class="hidden"></label>
+        <button class="btn sm pink" id="bReset">Reset ke isi awal</button></div></div>`;
+    $("#bExp").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(D, null, 2)], { type: "application/json" })); a.download = "candyress-backup.json"; a.click(); };
+    $("#bImp").onchange = async e => { try { D = { ...clone(DEFAULT), ...JSON.parse(await e.target.files[0].text()) }; renderEditor(); toast("Backup dimuat, klik Simpan"); } catch (er) { toast("File backup gak valid"); } };
+    $("#bReset").onclick = () => { if (confirm("Balikin semua isi ke awal? (belum kesimpan sampai kamu klik Simpan)")) { D = clone(DEFAULT); renderEditor(); } };
+  }
+}
+$("#ebody").addEventListener("input", e => {
+  const p = e.target.dataset.path; if (!p) return;
+  setP(p, e.target.type === "checkbox" ? e.target.checked : e.target.value);
+});
+$("#ebody").addEventListener("click", e => {
+  const a = e.target.dataset.a; if (!a) return;
+  const path = e.target.dataset.p;
+  const parentOf = p => { const ks = p.split("."); const i = +ks.pop(); return [ks.length ? getP(ks.join(".")) : D, i]; };
+  if (a === "del") { if (!confirm("Hapus ini?")) return; const [arr, i] = parentOf(path); arr.splice(i, 1); }
+  if (a === "up" || a === "down") { const [arr, i] = parentOf(path); const j = a === "up" ? i - 1 : i + 1; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; }
+  if (a === "add-plan") getP(path).plans.push({ name: "", price: "" });
+  if (a === "add-prod") getP(path).products.push({ name: "", note: "", ready: true, plans: [{ name: "", price: "" }] });
+  if (a === "add-cat") D.categories.push({ name: "Kategori baru", icon: "🍬", products: [] });
+  if (a === "add-tnc") D.tnc.push({ title: "Bagian baru", items: [""] });
+  if (a === "add-item") (D[path] ? D[path] : getP(path)).push("");
+  if (a === "add-testi") (D.testimonials = D.testimonials || []).push({ text: "", who: "" });
+  renderEditor();
+});
+window.addEventListener("beforeunload", e => { if (!$("#adminbar").classList.contains("hidden")) { e.preventDefault(); e.returnValue = ""; } });
+
+$("#yr").textContent = new Date().getFullYear();
+load().then(() => { renderSite(); if (location.hash === "#admin") $("#btnAdmin").click(); });
+</script>
+</body>
+</html>
